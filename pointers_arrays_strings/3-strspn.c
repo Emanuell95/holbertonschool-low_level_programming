@@ -1,40 +1,35 @@
-#include <stdio.h>
+#include "main.h"
 
-unsigned int _strspn(char *s, char *accept) {
-    unsigned int count = 0;
-    int i, found;
+/**
+ * *_strspn - gets the length of a prefix substring
+ * @s: string to evaluate
+ * @accept: string containing the list of characters to match in s
+ *
+ * Return: the number of bytes in the initial segment
+ * of s which consist only of bytes from accept
+ */
+unsigned int _strspn(char *s, char *accept)
+{
+	int i, j, f, flag;
 
-    // Loop through each character in `s`
-    while (*s) {
-        found = 0;
+	f = 0;
 
-        // Check if the character is in `accept`
-        for (i = 0; accept[i] != '\0'; i++) {
-            if (*s == accept[i]) {
-                found = 1;
-                break;
-            }
-        }
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		flag = 0;
+		for (j = 0; accept[j] != '\0'; j++)
+		{
+			if (s[i] == accept[j])
+			{
+				f++;
+				flag = 1;
+			}
+		}
+		if (flag == 0)
+		{
+			return (f);
+		}
+	}
 
-        // If character is not found in `accept`, stop counting
-        if (!found) {
-            break;
-        }
-
-        // Move to the next character in `s` and increment count
-        count++;
-        s++;
-    }
-
-    return count;
-}
-
-int main() {
-    char str[] = "hello, world";
-    char accept[] = "he";
-
-    unsigned int result = _strspn(str, accept);
-    printf("Length of prefix substring: %u\n", result);
-
-    return 0;
+	return (0);
 }
