@@ -2,25 +2,39 @@
 
 unsigned int _strspn(char *s, char *accept) {
     unsigned int count = 0;
-    char *ptr;
+    int i, found;
 
-    // Loop through each character in the string s
+    // Loop through each character in `s`
     while (*s) {
-        // Check if the current character in s exists in accept
-        for (ptr = accept; *ptr; ptr++) {
-            if (*s == *ptr) {
-                count++;  // Increment count if a match is found
-                break;     // Break out of the inner loop to check the next character in s
+        found = 0;
+
+        // Check if the character is in `accept`
+        for (i = 0; accept[i] != '\0'; i++) {
+            if (*s == accept[i]) {
+                found = 1;
+                break;
             }
         }
 
-        // If no match was found in accept, break the outer loop
-        if (*ptr == '\0') {
+        // If character is not found in `accept`, stop counting
+        if (!found) {
             break;
         }
 
-        s++;  // Move to the next character in s
+        // Move to the next character in `s` and increment count
+        count++;
+        s++;
     }
 
     return count;
- }
+}
+
+int main() {
+    char str[] = "hello, world";
+    char accept[] = "he";
+
+    unsigned int result = _strspn(str, accept);
+    printf("Length of prefix substring: %u\n", result);
+
+    return 0;
+}
