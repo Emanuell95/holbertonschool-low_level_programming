@@ -1,19 +1,20 @@
 #ifndef DOG_H 
 #define DOG_H
 
-
 /**
- *struct dog - dog data
- *@name: name of the dog
- *@age: age of the dog
- *@owner: name of the owner of the dog
+ * struct dog - Defines a dog's attributes
+ * @name: Name of the dog
+ * @age: Age of the dog
+ * @owner: Name of the dog's owner
  */
-typedef struct dog
-{
-	char *name;
-	float age;
-	char *owner;
-} dog_t;
+struct dog {
+    char *name;
+    float age;
+    char *owner;
+};
+
+/* Define the alias dog_t for struct dog */
+typedef struct dog dog_t;
 
 
 /*Function prototypes */
