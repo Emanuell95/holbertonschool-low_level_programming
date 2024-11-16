@@ -1,49 +1,38 @@
-#include <stdio.h>
+#include "dog.h"
 #include <stdlib.h>
-#include <string.h> // For strcpy and strlen
-
-typedef struct dog {
-    char *name;
-    float age;
-    char *owner;
-} dog_t;
-
 /**
- * new_dog - Creates a new dog with the given details
- * @name: Name of the dog
- * @age: Age of the dog
- * @owner: Owner of the dog
- *
- * Return: A pointer to the new dog (dog_t *), or NULL if the function fails
- */
-dog_t *new_dog(char *name, float age, char *owner) {
-    dog_t *d;
+  * new_dog - creates a new struct of type dog
+  * @name: struct parameter name
+  * @age: struct parameter age
+  * @owner: struct parameter owner
+  * Return: returns pointer to buffer of datatype dog
+  */
+dog_t *new_dog(char *name, float age, char *owner)
+{
+	int nlen, olen, i;
+	dog_t *doggy;
 
-    // Allocate memory for a new dog
-    d = malloc(sizeof(dog_t));
-    if (d == NULL) {
-        return NULL; // If malloc fails, return NULL
-    }
+	nlen = olen = 0;
+	while (name[nlen++])
+		;
+	while (owner[olen++])
+		;
+	doggy = malloc(sizeof(dog_t));
+	if (doggy == NULL)
+		return (NULL);
 
-    // Allocate memory for the name and copy it
-    d->name = malloc(strlen(name) + 1); // +1 for the null terminator
-    if (d->name == NULL) {
-        free(d); // Free the previously allocated memory for dog_t
-        return NULL;
-    }
-    strcpy(d->name, name); // Copy the name into the newly allocated memory
+	doggy->name = malloc(nlen * sizeof(doggy->name));
+	if (doggy == NULL)
+		return (NULL);
+	for (i = 0; i < nlen; i++)
+		doggy->name[i] = name[i];
 
-    // Allocate memory for the owner and copy it
-    d->owner = malloc(strlen(owner) + 1); // +1 for the null terminator
-    if (d->owner == NULL) {
-        free(d->name); // Free the previously allocated memory for name
-        free(d); // Free the memory for dog_t
-        return NULL;
-    }
-    strcpy(d->owner, owner); // Copy the owner into the newly allocated memory
+	doggy->age = age;
 
-    // Set the age of the dog
-    d->age = age;
-
-    return d;
+	doggy->owner = malloc(olen * sizeof(doggy->owner));
+	if (doggy == NULL)
+		return (NULL);
+	for (i = 0; i < olen; i++)
+		doggy->owner[i] = owner[i];
+	return (doggy);
 }
